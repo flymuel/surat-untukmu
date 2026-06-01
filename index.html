@@ -169,6 +169,22 @@
             display: block;
         }
 
+        .video-grid {
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); /* Di laptop: 2 video berdampingan */
+            gap: 20px; 
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr; /* Di HP: Video jadi 1 baris memanjang (Besar & Jelas) */
+            }
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr); /* Di HP: Foto jadi 2 kolom (agar tidak terlalu kecil) */
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -300,7 +316,7 @@
             <p class="subtitle">our memories</p>
             <h2 class="title-sub serif">Memories That Last Forever</h2>
             
-            <div class="photo-grid" style="margin-top: 30px;">
+            <div class="video-grid" style="margin-top: 30px;">
 
                 <div class="video-container" style="margin: 0; max-width: 100%;">
                     <video controls controlsList="nodownload" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover;">
