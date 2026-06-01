@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, My Everything</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1f0b17;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --text-main: #fce4ec;
+            --text-muted: #d4a5b9;
+            --accent: #e57373;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('bg.jpg') center/cover fixed;
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: normal;
+        }
+
+        #cover-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-dark); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 100;
+            transition: opacity 1.5s ease;
+        }
+
+        .gift-box {
+            font-size: 90px; cursor: pointer; animation: pulse 1.5s infinite;
+            position: relative; z-index: 10;
+        }
+
+        .tap-text {
+            margin-top: 15px; font-size: 11px; color: var(--text-muted);
+            letter-spacing: 3px; text-transform: uppercase;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(229,115,115,0.4)); }
+            100% { transform: scale(1); }
+        }
+
+        .burst-flower {
+            position: absolute; font-size: 30px; opacity: 0;
+            pointer-events: none; transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        #main-content {
+            display: none; opacity: 0; transition: opacity 2s ease;
+            position: relative; z-index: 10; padding-bottom: 100px;
+        }
+
+        .petals {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1; overflow: hidden;
+        }
+        
+        .petal {
+            position: absolute; background-color: #ffb7c5;
+            border-radius: 50% 0 50% 0; opacity: 0.4;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .music-widget {
+            position: fixed; bottom: 30px; left: 30px;
+            background: rgba(15, 5, 10, 0.7); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 15px; padding: 15px; width: 260px;
+            backdrop-filter: blur(15px); z-index: 50; display: flex; flex-direction: column;
+            gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.3s;
+        }
+        
+        .music-widget:hover { transform: translateY(-5px); }
+        .music-top { display: flex; align-items: center; gap: 15px; }
+        .music-top img { width: 45px; height: 45px; border-radius: 5px; object-fit: cover; }
+        .music-info { display: flex; flex-direction: column; gap: 2px; }
+        .music-info .title { font-size: 13px; font-weight: 500; color: #fff; }
+        .music-info .artist { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
+        .progress-container { width: 100%; background: rgba(255,255,255,0.2); height: 4px; border-radius: 2px; }
+        .progress-bar { width: 0%; background: var(--text-main); height: 100%; border-radius: 2px; transition: width 0.1s; }
+        .controls { display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 16px; cursor: pointer; color: var(--text-main); }
+        .controls span:hover { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .music-widget { bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 350px; }
+            .music-widget:hover { transform: translate(-50%, -5px); }
+        }
+
+        section {
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 50px 20px; max-width: 800px; margin: 0 auto; position: relative;
+        }
+
+        .hero-section { min-height: 100vh; justify-content: center; }
+        
+        .scroll-down {
+            position: absolute; bottom: 40px; font-size: 10px;
+            letter-spacing: 3px; color: var(--text-muted); animation: bounce-sm 2s infinite;
+        }
+        
+        @keyframes bounce-sm {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .subtitle { font-size: 11px; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px; }
+        .title-main { font-size: 55px; margin-bottom: 25px; color: #fff; line-height: 1.2; }
+        .title-sub { font-size: 38px; margin-bottom: 25px; color: #fff; }
+        .text-body { font-size: 14px; line-height: 1.9; color: #dcdcdc; max-width: 650px; font-weight: 300; }
+
+        .reasons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; width: 100%; margin-top: 40px; }
+        .card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); padding: 30px 25px; border-radius: 12px; backdrop-filter: blur(10px); transition: all 0.3s ease; text-align: center; }
+        .card:hover { transform: translateY(-8px); border-color: rgba(229,115,115,0.3); }
+        .card-icon { font-size: 24px; margin-bottom: 15px; }
+        .card h3 { font-size: 22px; margin-bottom: 12px; color: #fff; }
+        .card p { font-size: 13px; color: #bca0ad; line-height: 1.6; }
+
+        .garden-container { margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .flower-item { font-size: 40px; position: relative; cursor: pointer; transition: transform 0.3s; }
+        .flower-item:hover { transform: scale(1.2); }
+        .flower-tooltip {
+            visibility: hidden; opacity: 0; width: 120px; background-color: rgba(0,0,0,0.9);
+            color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; font-size: 11px;
+            font-family: 'Montserrat', sans-serif; position: absolute; z-index: 1;
+            bottom: 120%; left: 50%; margin-left: -60px; transition: opacity 0.3s; pointer-events: none;
+        }
+        .flower-item:hover .flower-tooltip { visibility: visible; opacity: 1; }
+
+        .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; margin-top: 40px; }
+        .photo-item { position: relative; }
+        .photo-item img {
+            width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;
+            filter: grayscale(100%) sepia(30%) hue-rotate(290deg) brightness(0.8) contrast(1.2); transition: filter 0.5s ease;
+        }
+        .photo-item img:hover { filter: grayscale(0%); }
+        .photo-caption { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; margin-top: 15px; color: var(--text-muted); }
+
+        .video-container {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 350px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="lagu.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="petals" id="petals-container"></div>
+
+    <div id="cover-screen" onclick="openGift()">
+        <div class="gift-box" id="gift-icon">🤍</div>
+        <div class="tap-text" id="tap-text">surprise untuk kesayangan aku🤍</div>
+    </div>
+
+    <div id="main-content">
+        
+        <div class="music-widget">
+            <div class="music-top">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn8IpWBELsWEyQseUdMv5o9Mae5WD0Vw-LGg&s" alt="Album Art">
+                <div class="music-info">
+                    <span class="title">Hanya Untuk-Mu</span>
+                    <span class="artist">Ten2Five</span>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="controls">
+                <span>⏮</span>
+                <span id="play-pause-btn" onclick="toggleMusic()">⏸</span>
+                <span>⏭</span>
+            </div>
+        </div>
+
+        <section class="hero-section">
+            <p class="subtitle">sebuah ucapan cinta untuk pujaan hatiku🤍</p>
+            <h1 class="title-main serif">Untukmu<br>Pemegang Hatiku</h1>
+            <h1 class="title-main serif">Sasta Rainbit</h1>
+            <img src="fotoawal.jpg" alt="Pemegang Hatiku" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 25px rgba(229,115,115,0.4); margin-bottom: 25px;">
+            <p class="text-body" style="margin-top:10px;">Setiap kelopak bunga menyimpan bisikan tentang betapa berartinya dirimu bagiku.</p>
+            <div style="font-size: 24px; margin-top:20px;">🌸</div>
+            <div class="scroll-down">LANJUT SCROLL KEBAWAH🤍</div>
+        </section>
+
+        <section>
+            <p class="subtitle">🌸 from my heart 🌸</p>
+            <h2 class="title-sub serif">You are my<br>wildest dream<br>come true.</h2>
+            <p class="text-body">
+                In a world full of ordinary moments, you are the extraordinary one. The way you laugh, the way you care, the way you simply exist — it fills every corner of my world with something I never knew I needed.<br><br>
+                These flowers are not enough. No words ever could be. But they carry every unspoken feeling I hold for you, pressed between their petals like tiny love letters waiting to be found.
+                <br> Semua Yang Kumau Hanyalah Dirimu.
+            </p>
+            <p class="serif" style="margin-top: 40px; font-style: italic; font-size: 24px; color: var(--text-muted);">
+                - Selalu Dirimu -
+            </p>
+        </section>
+
+        <section>
+            <p class="subtitle">masih banyak yang tak bisa ku ungkapkan namun ini beberapa alasan</p>
+            <h2 class="title-sub serif">Mengapa Aku Mencintaimu</h2>
+            <div class="reasons-grid">
+                <div class="card">
+                    <div class="card-icon">✨</div>
+                    <h3 class="serif">Your Smile</h3>
+                    <p>It lights up every room and every corner of my heart simultaneously.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌟</div>
+                    <h3 class="serif">Your Soul</h3>
+                    <p>Rare, genuine, and more beautiful than any flower ever grown.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💖</div>
+                    <h3 class="serif">Your Kindness</h3>
+                    <p>The way you love the world makes me want to be better every single day.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎵</div>
+                    <h3 class="serif">Your Laughter</h3>
+                    <p>The best sound in existence. My favourite melody, always.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💪</div>
+                    <h3 class="serif">Your Strength</h3>
+                    <p>You carry so much grace through everything. I admire you endlessly.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌸</div>
+                    <h3 class="serif">Simply You</h3>
+                    <p>Every version of you, every moment - you are more than enough.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <p class="subtitle">our garden</p>
+            <h2 class="title-sub serif">A Garden Grown<br>Just For You</h2>
+            <div class="garden-container">
+                <div class="flower-item">🌹<span class="flower-tooltip">Passion & Love</span></div>
+                <div class="flower-item">🌸<span class="flower-tooltip">Beauty & Grace</span></div>
+                <div class="flower-item">🌺<span class="flower-tooltip">Delicate Beauty</span></div>
+                <div class="flower-item">🌻<span class="flower-tooltip">Adoration & Joy</span></div>
+                <div class="flower-item">🌼<span class="flower-tooltip">Purity & Hope</span></div>
+                <div class="flower-item">🌷<span class="flower-tooltip">Perfect Love</span></div>
+            </div>
+            <p class="text-body" style="font-size:11px; margin-top:25px; letter-spacing:1px; font-style:italic;">
+                
+            </p>
+        </section>
+
+        <section>
+            <p class="subtitle">Waktu terhenti di balik lensa, 
+                namun rasanya tak pernah pudar oleh masa.</p>
+            <h2 class="title-sub serif">Baby You're<br>Divine</h2>
+            <div class="photo-grid">
+                <div class="photo-item"><img src="foto1.jpg" alt="You"><p class="photo-caption">you</p></div>
+                <div class="photo-item"><img src="foto2.jpg" alt="Are"><p class="photo-caption">are</p></div>
+                <div class="photo-item"><img src="foto3.jpg" alt="So"><p class="photo-caption">so</p></div>
+                <div class="photo-item"><img src="foto4.jpg" alt="Beautiful"><p class="photo-caption">beautiful</p></div>
+                <div class="photo-item"><img src="foto5.jpg" alt="Like"><p class="photo-caption">like</p></div>
+                <div class="photo-item"><img src="foto6.jpg" alt="An"><p class="photo-caption">an</p></div>
+                <div class="photo-item"><img src="foto7.jpg" alt="Angel"><p class="photo-caption">angel</p></div>
+                <div class="photo-item"><img src="foto8.jpg" alt="🤍"><p class="photo-caption">🤍</p></div>
+            </div>
+        </section>
+
+        <section>
+            <p class="subtitle">our memories</p>
+            <h2 class="title-sub serif">Memories That Last Forever</h2>
+            
+            <div class="photo-grid" style="margin-top: 30px;">
+
+                <div class="video-container" style="margin: 0; max-width: 100%;">
+                    <video controls controlsList="nodownload" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover;">
+                        <source src="video2.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="video-container" style="margin: 0; max-width: 100%;">
+                    <video controls controlsList="nodownload" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover;">
+                        <source src="video3.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="video-container" style="margin: 0; max-width: 100%;">
+                    <video controls controlsList="nodownload" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover;">
+                        <source src="video4.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="video-container" style="margin: 0; max-width: 100%;">
+                    <img src="fotospec.jpg" alt="LUCUU BANGETTT😫😫" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block;">
+                </div>
+
+            </div>
+
+            <p class="text-body" style="font-size: 13px; margin-top: 20px;">Every second with you is a treasure.</p>
+        </section>
+
+        <section>
+            <p class="subtitle">a prayer for you</p>
+            <h2 class="title-sub serif">Doa Terbaikku</h2>
+            
+            <div style="background: rgba(255, 255, 255, 0.03); border-left: 3px solid var(--accent); padding: 30px 40px; margin-top: 20px; max-width: 600px; border-radius: 0 15px 15px 0; box-shadow: 5px 5px 20px rgba(0,0,0,0.2);">
+                <p class="serif" style="font-size: 24px; font-style: italic; line-height: 1.8; color: #fff;">
+                    "Semoga di ulang tahunmu semua cita-citamu dan anganmu dapat tercapai, semua doa yang kamu panjatkan diberi di waktu yang tepat. Semoga kamu selalu dikelilingi oleh orang-orang yang mencintaimu, dan semoga kamu selalu bahagia. Aku berdoa agar setiap langkahmu dipenuhi dengan keberuntungan, dan setiap harimu dipenuhi dengan kebahagiaan.
+                    "
+                </p>
+            </div>
+            
+            <p class="text-body" style="font-size: 14px; margin-top: 25px;">
+                Amin paling serius untuk semua mimpimu. Selamat bertambah usia, Sayangku.
+            </p>
+        </section>
+
+        <section>
+            <div style="font-size: 28px; letter-spacing: 10px; margin-bottom: 20px;">🌸🌺🌹</div>
+            <p class="subtitle">always & forever</p>
+            <h1 class="title-sub serif">You Are Loved<br>Beyond Words</h1>
+            <p class="text-body" style="font-size: 14px; max-width: 600px;">
+                No matter where life takes us, know that somewhere in the universe, there is a garden blooming with every feeling I have ever held for you. You deserve the world. You deserve all the flowers. You deserve everything.
+            </p>
+            <p class="serif" style="margin-top: 50px; font-style: italic; color: var(--text-muted); font-size:18px;">
+                made with love, just for you 🤍
+            </p>
+        </section>
+        
+    </div>
+
+    <script>
+        const audio = document.getElementById('bg-music');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const progressBar = document.getElementById('progress-bar');
+        let isGiftOpened = false;
+
+        function createBurst() {
+            const emojis = ['🌸', '🌺', '🌹', '✨', '💖'];
+            const container = document.getElementById('cover-screen');
+            
+            for (let i = 0; i < 15; i++) {
+                let flower = document.createElement('div');
+                flower.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                flower.classList.add('burst-flower');
+                flower.style.left = '50%'; flower.style.top = '50%';
+                container.appendChild(flower);
+
+                setTimeout(() => {
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = 100 + Math.random() * 150;
+                    const tx = Math.cos(angle) * velocity;
+                    const ty = Math.sin(angle) * velocity;
+                    flower.style.transform = `translate(${tx}px, ${ty}px) rotate(${Math.random()*360}deg) scale(${0.5 + Math.random()})`;
+                    flower.style.opacity = '1';
+                }, 10);
+            }
+        }
+
+        function openGift() {
+            if(isGiftOpened) return;
+            isGiftOpened = true;
+
+            document.getElementById('gift-icon').style.display = 'none';
+            document.getElementById('tap-text').style.display = 'none';
+            createBurst(); 
+            
+            let coverScreen = document.getElementById('cover-screen');
+            
+            setTimeout(() => {
+                coverScreen.style.opacity = '0';
+                setTimeout(() => {
+                    coverScreen.style.display = 'none';
+                    let mainContent = document.getElementById('main-content');
+                    mainContent.style.display = 'block';
+                    setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
+                    
+                    try {
+                        let playPromise = audio.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(e => console.log("Auto-play dibatasi browser."));
+                        }
+                    } catch(e) {}
+                }, 1000);
+            }, 800);
+        }
+
+        function toggleMusic() {
+            if(audio.paused) {
+                audio.play(); playPauseBtn.innerText = '⏸';
+            } else {
+                audio.pause(); playPauseBtn.innerText = '▶';
+            }
+        }
+
+        audio.addEventListener('timeupdate', () => {
+            if(audio.duration) {
+                const progressPercent = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+            }
+        });
+
+        audio.addEventListener('pause', () => playPauseBtn.innerText = '▶');
+        audio.addEventListener('play', () => playPauseBtn.innerText = '⏸');
+
+        const petalsContainer = document.getElementById('petals-container');
+        for (let i = 0; i < 35; i++) {
+            let petal = document.createElement('div');
+            petal.classList.add('petal');
+            let size = Math.random() * 8 + 6; 
+            petal.style.width = size + 'px'; petal.style.height = size + 'px';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 6 + 6 + 's';
+            petal.style.animationDelay = Math.random() * 7 + 's';
+            petalsContainer.appendChild(petal);
+        }
+    </script>
+</body>
+</html>
