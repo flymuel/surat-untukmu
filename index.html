@@ -5,123 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For You, My Everything</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-dark: #1f0b17;
-            --bg-card: rgba(255, 255, 255, 0.04);
-            --text-main: #fce4ec;
-            --text-muted: #d4a5b9;
-            --accent: #e57373;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        /* Background mengarah ke assets/foto/bg.jpg */
-        body {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('assets/foto/bg.jpg') center/cover fixed;
-            color: var(--text-main);
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: normal; }
-
-        #cover-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-dark); display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 100;
-            transition: opacity 1.5s ease;
-        }
-
-        .gift-box { font-size: 90px; cursor: pointer; animation: pulse 1.5s infinite; position: relative; z-index: 10; }
-        .tap-text { margin-top: 15px; font-size: 11px; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(229,115,115,0.4)); }
-            100% { transform: scale(1); }
-        }
-
-        .burst-flower { position: absolute; font-size: 30px; opacity: 0; pointer-events: none; transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-
-        #main-content { display: none; opacity: 0; transition: opacity 2s ease; position: relative; z-index: 10; padding-bottom: 100px; }
-
-        .petals { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
-        .petal { position: absolute; background-color: #ffb7c5; border-radius: 50% 0 50% 0; opacity: 0.4; animation: fall linear infinite; }
-        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 20% { opacity: 0.6; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
-
-        .music-widget {
-            position: fixed; bottom: 30px; left: 30px;
-            background: rgba(15, 5, 10, 0.7); border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 15px; padding: 15px; width: 260px;
-            backdrop-filter: blur(15px); z-index: 50; display: flex; flex-direction: column;
-            gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.3s;
-        }
-        
-        .music-widget:hover { transform: translateY(-5px); }
-        .music-top { display: flex; align-items: center; gap: 15px; }
-        .music-top img { width: 45px; height: 45px; border-radius: 5px; object-fit: cover; }
-        .music-info { display: flex; flex-direction: column; gap: 2px; }
-        .music-info .title { font-size: 13px; font-weight: 500; color: #fff; }
-        .music-info .artist { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
-        .progress-container { width: 100%; background: rgba(255,255,255,0.2); height: 4px; border-radius: 2px; }
-        .progress-bar { width: 0%; background: var(--text-main); height: 100%; border-radius: 2px; transition: width 0.1s; }
-        .controls { display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 16px; cursor: pointer; color: var(--text-main); }
-        .controls span:hover { color: var(--accent); }
-
-        @media (max-width: 768px) {
-            .music-widget { bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 350px; }
-            .music-widget:hover { transform: translate(-50%, -5px); }
-        }
-
-        section { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 50px 20px; max-width: 800px; margin: 0 auto; position: relative; }
-        .hero-section { min-height: 100vh; justify-content: center; }
-        
-        .scroll-down { position: absolute; bottom: 40px; font-size: 10px; letter-spacing: 3px; color: var(--text-muted); animation: bounce-sm 2s infinite; }
-        @keyframes bounce-sm { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
-
-        .subtitle { font-size: 11px; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px; }
-        .title-main { font-size: 55px; margin-bottom: 25px; color: #fff; line-height: 1.2; }
-        .title-sub { font-size: 38px; margin-bottom: 25px; color: #fff; }
-        .text-body { font-size: 14px; line-height: 1.9; color: #dcdcdc; max-width: 650px; font-weight: 300; }
-
-        .reasons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; width: 100%; margin-top: 40px; }
-        .card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); padding: 30px 25px; border-radius: 12px; backdrop-filter: blur(10px); transition: all 0.3s ease; text-align: center; }
-        .card:hover { transform: translateY(-8px); border-color: rgba(229,115,115,0.3); }
-        .card-icon { font-size: 24px; margin-bottom: 15px; }
-        .card h3 { font-size: 22px; margin-bottom: 12px; color: #fff; }
-        .card p { font-size: 13px; color: #bca0ad; line-height: 1.6; }
-
-        .garden-container { margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-        .flower-item { font-size: 40px; position: relative; cursor: pointer; transition: transform 0.3s; }
-        .flower-item:hover { transform: scale(1.2); }
-        .flower-tooltip {
-            visibility: hidden; opacity: 0; width: 120px; background-color: rgba(0,0,0,0.9);
-            color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; font-size: 11px;
-            font-family: 'Montserrat', sans-serif; position: absolute; z-index: 1;
-            bottom: 120%; left: 50%; margin-left: -60px; transition: opacity 0.3s; pointer-events: none;
-        }
-        .flower-item:hover .flower-tooltip { visibility: visible; opacity: 1; }
-
-        .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; margin-top: 40px; }
-        .photo-item { position: relative; }
-        .photo-item img {
-            width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;
-            filter: grayscale(100%) sepia(30%) hue-rotate(290deg) brightness(0.8) contrast(1.2); transition: filter 0.5s ease;
-        }
-        .photo-item img:hover { filter: grayscale(0%); }
-        .photo-caption { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; margin-top: 15px; color: var(--text-muted); }
-
-        .video-container { margin-top: 30px; width: 100%; max-width: 350px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .video-container video { width: 100%; display: block; }
-        .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; }
-
-        @media (max-width: 768px) {
-            .video-grid { grid-template-columns: 1fr; }
-            .photo-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -166,10 +51,10 @@
             <div class="scroll-down">LANJUT SCROLL KEBAWAH🤍</div>
         </section>
 
-                <section>
+        <section>
             <p class="subtitle">our melodies</p>
             <h2 class="title-sub serif">Lagu Yang Mengingatkanku Pada Dirimu</h2>
-            <p class="subtitle">Klik Cover Lagu Untuk Mengganti Lagu</p>
+            <p class="subtitle">klik cover art untuk ganti lagu</p>
             <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; width: 100%; margin-top: 30px;">
 
                 <div class="photo-item" style="cursor: pointer;" onclick="changeSong('assets/lagu/lagu1.mp3', 'Hanya Untuk-Mu', 'Ten2Five', 'assets/cover/cover1.jpg')">
@@ -210,7 +95,7 @@
             <h2 class="title-sub serif">You are my<br>wildest dream<br>come true.</h2>
             <p class="text-body">
                 In a world full of ordinary moments, you are the extraordinary one. The way you laugh, the way you care, the way you simply exist — it fills every corner of my world with something I never knew I needed.<br><br>
-                These flowers are not enough. No words ever could be. But they carry every unspoken feeling I hold for you, pressed between their petals like tiny love letters waiting to be found.<br> Semua Yang Kumau Hanyalah Dirimu.
+                These flowers are not enough. No words ever could be. But they carry every unspoken feeling I hold for you, pressed between their petals like tiny love letters waiting to be found.<br><br> Semua Yang Kumau Hanyalah Dirimu.
             </p>
             <p class="serif" style="margin-top: 40px; font-style: italic; font-size: 24px; color: var(--text-muted);">
                 - Selalu Dirimu -
@@ -296,89 +181,6 @@
         
     </div>
 
-    <script>
-        const audio = document.getElementById('bg-music');
-        const playPauseBtn = document.getElementById('play-pause-btn');
-        const progressBar = document.getElementById('progress-bar');
-        let isGiftOpened = false;
-
-        function createBurst() {
-            const emojis = ['🌸', '🌺', '🌹', '✨', '💖'];
-            const container = document.getElementById('cover-screen');
-            for (let i = 0; i < 15; i++) {
-                let flower = document.createElement('div');
-                flower.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-                flower.classList.add('burst-flower');
-                flower.style.left = '50%'; flower.style.top = '50%';
-                container.appendChild(flower);
-                setTimeout(() => {
-                    const angle = Math.random() * Math.PI * 2;
-                    const velocity = 100 + Math.random() * 150;
-                    const tx = Math.cos(angle) * velocity;
-                    const ty = Math.sin(angle) * velocity;
-                    flower.style.transform = `translate(${tx}px, ${ty}px) rotate(${Math.random()*360}deg) scale(${0.5 + Math.random()})`;
-                    flower.style.opacity = '1';
-                }, 10);
-            }
-        }
-
-       function openGift() {
-    if(isGiftOpened) return;
-    isGiftOpened = true;
-
-    changeSong('assets/lagu/lagu1.mp3', 'Hanya Untuk-Mu', 'Ten2Five', 'assets/cover/cover1.jpg');
-
-    document.getElementById('gift-icon').style.display = 'none';
-    document.getElementById('tap-text').style.display = 'none';
-    createBurst(); 
-    
-    let coverScreen = document.getElementById('cover-screen');
-    setTimeout(() => {
-        coverScreen.style.opacity = '0';
-        setTimeout(() => {
-            coverScreen.style.display = 'none';
-            let mainContent = document.getElementById('main-content');
-            mainContent.style.display = 'block';
-            setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
-        }, 1000);
-    }, 800);
-}
-
-        function toggleMusic() {
-            if(audio.paused) { audio.play(); playPauseBtn.innerText = '⏸'; } 
-            else { audio.pause(); playPauseBtn.innerText = '▶'; }
-        }
-
-        function changeSong(songSrc, songTitle, songArtist, coverSrc) {
-            audio.src = songSrc; 
-            document.getElementById('player-title').innerText = songTitle;
-            document.getElementById('player-artist').innerText = songArtist;
-            document.getElementById('player-cover').src = coverSrc; 
-            audio.play();
-            playPauseBtn.innerText = '⏸';
-        }
-
-        audio.addEventListener('timeupdate', () => {
-            if(audio.duration) {
-                const progressPercent = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = `${progressPercent}%`;
-            }
-        });
-
-        audio.addEventListener('pause', () => playPauseBtn.innerText = '▶');
-        audio.addEventListener('play', () => playPauseBtn.innerText = '⏸');
-
-        const petalsContainer = document.getElementById('petals-container');
-        for (let i = 0; i < 35; i++) {
-            let petal = document.createElement('div');
-            petal.classList.add('petal');
-            let size = Math.random() * 8 + 6; 
-            petal.style.width = size + 'px'; petal.style.height = size + 'px';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = Math.random() * 6 + 6 + 's';
-            petal.style.animationDelay = Math.random() * 7 + 's';
-            petalsContainer.appendChild(petal);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
