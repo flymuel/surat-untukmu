@@ -169,6 +169,7 @@
                 <section>
             <p class="subtitle">our melodies</p>
             <h2 class="title-sub serif">Lagu Yang Mengingatkanku Pada Dirimu</h2>
+            <p class="subtitle">Klik Cover Lagu Untuk Mengganti Lagu</p>
             <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; width: 100%; margin-top: 30px;">
 
                 <div class="photo-item" style="cursor: pointer;" onclick="changeSong('assets/lagu/lagu1.mp3', 'Hanya Untuk-Mu', 'Ten2Five', 'assets/cover/cover1.jpg')">
@@ -321,34 +322,27 @@
             }
         }
 
-        function openGift() {
-            if(isGiftOpened) return;
-            isGiftOpened = true;
+       function openGift() {
+    if(isGiftOpened) return;
+    isGiftOpened = true;
 
-            // PINDAHKAN AUDIO KE SINI: Harus dieksekusi langsung saat klik, tanpa jeda waktu
-            try {
-                let playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(e => console.log("Auto-play dibatasi browser."));
-                }
-                playPauseBtn.innerText = '⏸'; // Ubah tombol player ke pause
-            } catch(e) {}
+    changeSong('assets/lagu/lagu1.mp3', 'Hanya Untuk-Mu', 'Ten2Five', 'assets/cover/cover1.jpg');
 
-            document.getElementById('gift-icon').style.display = 'none';
-            document.getElementById('tap-text').style.display = 'none';
-            createBurst(); 
-            
-            let coverScreen = document.getElementById('cover-screen');
-            setTimeout(() => {
-                coverScreen.style.opacity = '0';
-                setTimeout(() => {
-                    coverScreen.style.display = 'none';
-                    let mainContent = document.getElementById('main-content');
-                    mainContent.style.display = 'block';
-                    setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
-                }, 1000);
-            }, 800);
-        }
+    document.getElementById('gift-icon').style.display = 'none';
+    document.getElementById('tap-text').style.display = 'none';
+    createBurst(); 
+    
+    let coverScreen = document.getElementById('cover-screen');
+    setTimeout(() => {
+        coverScreen.style.opacity = '0';
+        setTimeout(() => {
+            coverScreen.style.display = 'none';
+            let mainContent = document.getElementById('main-content');
+            mainContent.style.display = 'block';
+            setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
+        }, 1000);
+    }, 800);
+}
 
         function toggleMusic() {
             if(audio.paused) { audio.play(); playPauseBtn.innerText = '⏸'; } 
