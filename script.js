@@ -91,8 +91,6 @@ function openGift() {
     if(isGiftOpened) return;
     isGiftOpened = true;
 
-    // PINDAHKAN AUDIO KE SINI: Harus dieksekusi langsung saat kado diklik
-    // Ini adalah kunci agar browser tidak memblokir autoplay-nya
     changeSong('assets/lagu/lagu1.mp3', 'Hanya Untuk-Mu', 'Ten2Five', 'assets/cover/cover1.jpg');
 
     document.getElementById('gift-icon').style.display = 'none';
