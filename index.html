@@ -169,7 +169,7 @@
                 <section>
             <p class="subtitle">our melodies</p>
             <h2 class="title-sub serif">Lagu Yang Mengingatkanku Pada Dirimu</h2>
-            <div class="photo-grid" style="margin-top: 30px;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; width: 100%; margin-top: 30px;">
 
                 <div class="photo-item" style="cursor: pointer;" onclick="changeSong('assets/lagu/lagu1.mp3', 'Hanya Untuk-Mu', 'Ten2Five', 'assets/cover/cover1.jpg')">
                     <img src="assets/cover/cover1.jpg" alt="Cover Hanya Untuk-Mu" style="filter: none;">
@@ -324,6 +324,16 @@
         function openGift() {
             if(isGiftOpened) return;
             isGiftOpened = true;
+
+            // PINDAHKAN AUDIO KE SINI: Harus dieksekusi langsung saat klik, tanpa jeda waktu
+            try {
+                let playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => console.log("Auto-play dibatasi browser."));
+                }
+                playPauseBtn.innerText = '⏸'; // Ubah tombol player ke pause
+            } catch(e) {}
+
             document.getElementById('gift-icon').style.display = 'none';
             document.getElementById('tap-text').style.display = 'none';
             createBurst(); 
@@ -336,12 +346,6 @@
                     let mainContent = document.getElementById('main-content');
                     mainContent.style.display = 'block';
                     setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
-                    try {
-                        let playPromise = audio.play();
-                        if (playPromise !== undefined) {
-                            playPromise.catch(e => console.log("Auto-play dibatasi browser."));
-                        }
-                    } catch(e) {}
                 }, 1000);
             }, 800);
         }
