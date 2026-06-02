@@ -112,3 +112,24 @@ section { display: flex; flex-direction: column; justify-content: center; align-
     .video-grid { grid-template-columns: 1fr; }
     .photo-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+.playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .playlist-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px;
+    }
+    
+    .playlist-grid .photo-item:nth-child(5) {
+        grid-column: span 2; 
+        width: 50%;
+        margin: 0 auto;
+    }
+}
