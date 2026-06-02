@@ -1,6 +1,70 @@
 const audio = document.getElementById('bg-music');
 const playPauseBtn = document.getElementById('play-pause-btn');
 const progressBar = document.getElementById('progress-bar');
+
+const playlist = [
+    { src: 'assets/lagu/lagu1.mp3', title: 'Hanya Untuk-Mu', artist: 'Ten2Five', cover: 'assets/cover/cover1.jpg' },
+    { src: 'assets/lagu/lagu2.mp3', title: 'Aku Milikmu', artist: 'Dewa19', cover: 'assets/cover/cover2.jpg' },
+    { src: 'assets/lagu/lagu3.mp3', title: 'Kangen', artist: 'Dewa19', cover: 'assets/cover/cover3.jpg' },
+    { src: 'assets/lagu/lagu4.mp3', title: 'Keabadian', artist: 'Reza Artamevia', cover: 'assets/cover/cover4.jpg' },
+    { src: 'assets/lagu/lagu5.mp3', title: 'Sempurna', artist: 'Andra & The Backbone', cover: 'assets/cover/cover5.jpg' }
+];
+
+let currentSongIndex = 0; 
+
+function toggleMusic() {
+    if(audio.paused) { 
+        audio.play(); 
+        playPauseBtn.innerText = '⏸'; 
+    } else { 
+        audio.pause(); 
+        playPauseBtn.innerText = '▶'; 
+    }
+}
+
+function changeSong(songSrc, songTitle, songArtist, coverSrc) {
+    audio.src = songSrc; 
+    document.getElementById('player-title').innerText = songTitle;
+    document.getElementById('player-artist').innerText = songArtist;
+    document.getElementById('player-cover').src = coverSrc; 
+    audio.play();
+    playPauseBtn.innerText = '⏸';
+
+    const foundIndex = playlist.findIndex(song => song.src === songSrc);
+    if(foundIndex !== -1) {
+        currentSongIndex = foundIndex;
+    }
+}
+
+function nextSong() {
+    currentSongIndex++;
+    if (currentSongIndex >= playlist.length) {
+        currentSongIndex = 0; 
+    }
+    let next = playlist[currentSongIndex];
+    changeSong(next.src, next.title, next.artist, next.cover);
+}
+
+function prevSong() {
+    currentSongIndex--;
+    if (currentSongIndex < 0) {
+        currentSongIndex = playlist.length - 1; 
+    }
+    let prev = playlist[currentSongIndex];
+    changeSong(prev.src, prev.title, prev.artist, prev.cover);
+}
+
+audio.addEventListener('timeupdate', () => {
+    if(audio.duration) {
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+    }
+});
+
+audio.addEventListener('pause', () => playPauseBtn.innerText = '▶');
+audio.addEventListener('play', () => playPauseBtn.innerText = '⏸');
+
+audio.addEventListener('ended', nextSong);
 let isGiftOpened = false;
 
 function createBurst() {
