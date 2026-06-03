@@ -181,5 +181,13 @@ section.in-view > *:nth-child(7) { transition-delay: 0.7s; }
 
     .photo-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .photo-grid .photo-caption { font-size: 12px !important; margin-top: 5px !important; }
-    .video-grid { grid-template-columns: 1fr; }
+    .video-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+        margin-top: 10px;
+    }
+    .video-container { 
+        margin-top: 0 !important; 
+        border-radius: 8px; 
+    }
 }
