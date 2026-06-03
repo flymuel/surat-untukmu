@@ -180,9 +180,8 @@ function moveButton(e) {
 }
 
 if (btnNo) {
-    btnNo.addEventListener('mouseover', moveButton);
-    btnNo.addEventListener('touchstart', (e) => {
-        e.preventDefault(); 
+  btnNo.addEventListener('click', (e) => {
+        e.preventDefault();
         moveButton();
     });
 }

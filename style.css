@@ -14,7 +14,7 @@ html {
 }
 
 body {
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1.0)), url('assets/foto/bg.jpg') center/cover fixed;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('assets/foto/bg.jpg') center/cover fixed;
     color: var(--text-main);
     font-family: 'Montserrat', sans-serif;
 }
@@ -70,7 +70,7 @@ h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: norm
 }
 
 #seek-bar {
-    -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     height: 4px;
     background: rgba(255, 255, 255, 0.2);
