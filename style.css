@@ -7,16 +7,17 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 html {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
     background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1.0)), url('assets/foto/bg.jpg') center/cover fixed;
     color: var(--text-main);
     font-family: 'Montserrat', sans-serif;
-    overflow-x: hidden;
 }
 
 h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: normal; }
