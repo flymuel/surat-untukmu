@@ -87,7 +87,7 @@ function createBurst() {
     }
 }
 
-function openGift() {
+function executeOpenGift() {
     if(isGiftOpened) return;
     isGiftOpened = true;
 
@@ -143,4 +143,58 @@ for (let i = 0; i < 35; i++) {
     petal.style.animationDuration = Math.random() * 6 + 6 + 's';
     petal.style.animationDelay = Math.random() * 7 + 's';
     petalsContainer.appendChild(petal);
+}
+
+const popupOverlay = document.getElementById('popup-overlay');
+const popupBox = document.getElementById('popup-box');
+const btnNo = document.getElementById('btn-no');
+
+function showPopup() {
+    if(isGiftOpened) return;
+    popupOverlay.classList.add('show');
+    
+    document.getElementById('cover-screen').onclick = null;
+}
+
+function confirmOpenGift() {
+    popupOverlay.classList.remove('show');
+    
+    executeOpenGift();
+}
+
+function moveButton(e) {
+    btnNo.style.position = 'absolute';
+
+    const boxWidth = popupBox.clientWidth;
+    const boxHeight = popupBox.clientHeight;
+    const btnWidth = btnNo.clientWidth;
+    const btnHeight = btnNo.clientHeight;
+
+    const maxX = boxWidth - btnWidth - 20;
+    const maxY = boxHeight - btnHeight - 20;
+
+    const randomX = Math.floor(Math.random() * maxX) + 10;
+    const randomY = Math.floor(Math.random() * maxY) + 10;
+
+    btnNo.style.left = `${randomX}px`;
+    btnNo.style.top = `${randomY}px`;
+}
+
+btnNo.addEventListener('mouseover', moveButton);
+
+btnNo.addEventListener('touchstart', (e) => {
+    e.preventDefault(); 
+    moveButton();
+});
+
+function nextSection(btn) {
+    const currentSection = btn.closest('section');
+    const nextSection = currentSection.nextElementSibling;
+   
+    if (nextSection && nextSection.tagName === 'SECTION') {
+        nextSection.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
 }

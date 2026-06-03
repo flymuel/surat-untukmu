@@ -16,10 +16,20 @@
 
     <div class="petals" id="petals-container"></div>
 
-    <div id="cover-screen" onclick="openGift()">
+    <div id="cover-screen" onclick="showPopup()">
         <div class="gift-box" id="gift-icon">🤍</div>
         <div class="tap-text" id="tap-text">surprise untuk kesayangan aku🤍</div>
     </div>
+
+    <div id="popup-overlay" class="hidden">
+    <div id="popup-box">
+        <h3 class="serif">Bener bener mau buka surprisenya nihh 🥺</h3>
+        <div class="popup-buttons">
+            <button id="btn-yes" class="popup-btn" onclick="confirmOpenGift()">Iyaaa dongggg 🤍</button>
+            <button id="btn-no" class="popup-btn">Nggak ah skip dulu 😜</button>
+        </div>
+    </div>
+</div>
 
     <div id="main-content">
         
@@ -48,7 +58,7 @@
             <img src="assets/foto/fotoawal.jpg" alt="Pemegang Hatiku" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 25px rgba(229,115,115,0.4); margin-bottom: 25px;">
             <p class="text-body" style="margin-top:10px;">Setiap kelopak bunga menyimpan bisikan tentang betapa berartinya dirimu bagiku.</p>
             <div style="font-size: 24px; margin-top:20px;">🌸</div>
-            <div class="scroll-down">LANJUT SCROLL KEBAWAH🤍</div>
+            <button class="next-btn" onclick="nextSection(this)">Selanjutnya 🤍</button>
         </section>
 
         <section>
@@ -88,6 +98,7 @@
                 </div>
 
             </div>
+            <button class="next-btn" onclick="nextSection(this)">Selanjutnya 🤍</button>
         </section>
 
         <section>
@@ -100,6 +111,7 @@
             <p class="serif" style="margin-top: 40px; font-style: italic; font-size: 24px; color: var(--text-muted);">
                 - Selalu Dirimu -
             </p>
+            <button class="next-btn" onclick="nextSection(this)">Selanjutnya 🤍</button>
         </section>
 
         <section>
@@ -113,6 +125,7 @@
                 <div class="card"><div class="card-icon">💪</div><h3 class="serif">Your Strength</h3><p>You carry so much grace through everything. I admire you endlessly.</p></div>
                 <div class="card"><div class="card-icon">🌸</div><h3 class="serif">Simply You</h3><p>Every version of you, every moment - you are more than enough.</p></div>
             </div>
+            <button class="next-btn" onclick="nextSection(this)">Selanjutnya 🤍</button>
         </section>
 
         <section>
@@ -128,6 +141,7 @@
                 <div class="photo-item"><img src="assets/foto/foto7.jpg" alt="Angel"><p class="photo-caption">angel</p></div>
                 <div class="photo-item"><img src="assets/foto/foto8.jpg" alt="🤍"><p class="photo-caption">🤍</p></div>
             </div>
+            <button class="next-btn" onclick="nextSection(this)">Selanjutnya 🤍</button>
         </section>
 
         <section>
@@ -153,6 +167,7 @@
                     <img src="assets/foto/fotospec.jpg" alt="LUCUU BANGETTT😫😫" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block;">
                 </div>
             </div>
+            <button class="next-btn" onclick="nextSection(this)">Selanjutnya 🤍</button>
             <p class="text-body" style="font-size: 13px; margin-top: 20px;">Every second with you is a treasure.</p>
         </section>
 
@@ -165,6 +180,7 @@
                 </p>
             </div>
             <p class="text-body" style="font-size: 14px; margin-top: 25px;">Amin paling serius untuk semua mimpimu. Selamat bertambah usia, Sayangku.</p>
+            <button class="next-btn" onclick="nextSection(this)">Selanjutnya 🤍</button>
         </section>
 
         <section>
