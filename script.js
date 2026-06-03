@@ -1,6 +1,8 @@
 const audio = document.getElementById('bg-music');
 const playPauseBtn = document.getElementById('play-pause-btn');
-const progressBar = document.getElementById('progress-bar');
+const seekBar = document.getElementById('seek-bar');
+const currentTimeDisplay = document.getElementById('current-time');
+const durationDisplay = document.getElementById('duration');
 
 const playlist = [
     { src: 'assets/lagu/lagu1.mp3', title: 'Hanya Untuk-Mu', artist: 'Ten2Five', cover: 'assets/cover/cover1.jpg' },
@@ -27,13 +29,14 @@ function changeSong(songSrc, songTitle, songArtist, coverSrc) {
     document.getElementById('player-title').innerText = songTitle;
     document.getElementById('player-artist').innerText = songArtist;
     document.getElementById('player-cover').src = coverSrc; 
-    audio.play();
-    playPauseBtn.innerText = '⏸';
-
+    
     const foundIndex = playlist.findIndex(song => song.src === songSrc);
     if(foundIndex !== -1) {
         currentSongIndex = foundIndex;
     }
+
+    audio.play();
+    playPauseBtn.innerText = '⏸';
 }
 
 function nextSong() {
@@ -54,18 +57,68 @@ function prevSong() {
     changeSong(prev.src, prev.title, prev.artist, prev.cover);
 }
 
+function formatTime(seconds) {
+    let min = Math.floor(seconds / 60);
+    let sec = Math.floor(seconds % 60);
+    if (sec < 10) sec = '0' + sec;
+    return `${min}:${sec}`;
+}
+
+let isSeeking = false;
+
+// Event saat slider digeser
+if(seekBar) { 
+    seekBar.addEventListener('input', () => {
+        isSeeking = true;
+    });
+
+    seekBar.addEventListener('change', () => {
+        const seekTime = (seekBar.value / 100) * audio.duration;
+        audio.currentTime = seekTime;
+        isSeeking = false;
+    });
+}
+
 audio.addEventListener('timeupdate', () => {
-    if(audio.duration) {
-        const progressPercent = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = `${progressPercent}%`;
+    if (audio.duration) {
+        if (seekBar && !isSeeking) {
+            const progressPercent = (audio.currentTime / audio.duration) * 100;
+            seekBar.value = progressPercent;
+        }
+        
+        if (currentTimeDisplay) {
+            currentTimeDisplay.innerText = formatTime(audio.currentTime);
+        }
+        
+        if (durationDisplay && !isNaN(audio.duration)) {
+            durationDisplay.innerText = formatTime(audio.duration);
+        }
+    }
+});
+
+audio.addEventListener('loadedmetadata', () => {
+    if (durationDisplay) {
+        durationDisplay.innerText = formatTime(audio.duration);
     }
 });
 
 audio.addEventListener('pause', () => playPauseBtn.innerText = '▶');
 audio.addEventListener('play', () => playPauseBtn.innerText = '⏸');
+audio.addEventListener('ended', nextSong); // Otomatis lanjut lagu saat habis
 
-audio.addEventListener('ended', nextSong);
-let isGiftOpened = false;
+const petalsContainer = document.getElementById('petals-container');
+if(petalsContainer) {
+    for (let i = 0; i < 35; i++) {
+        let petal = document.createElement('div');
+        petal.classList.add('petal');
+        let size = Math.random() * 8 + 6; 
+        petal.style.width = size + 'px'; petal.style.height = size + 'px';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = Math.random() * 6 + 6 + 's';
+        petal.style.animationDelay = Math.random() * 7 + 's';
+        petalsContainer.appendChild(petal);
+    }
+}
 
 function createBurst() {
     const emojis = ['🌸', '🌺', '🌹', '✨', '💖'];
@@ -87,84 +140,30 @@ function createBurst() {
     }
 }
 
-function executeOpenGift() {
-    if(isGiftOpened) return;
-    isGiftOpened = true;
-
-    changeSong('assets/lagu/lagu1.mp3', 'Hanya Untuk-Mu', 'Ten2Five', 'assets/cover/cover1.jpg');
-
-    document.getElementById('gift-icon').style.display = 'none';
-    document.getElementById('tap-text').style.display = 'none';
-    createBurst(); 
-    
-    let coverScreen = document.getElementById('cover-screen');
-    setTimeout(() => {
-        coverScreen.style.opacity = '0';
-        setTimeout(() => {
-            coverScreen.style.display = 'none';
-            let mainContent = document.getElementById('main-content');
-            mainContent.style.display = 'block';
-            setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
-        }, 1000);
-    }, 800);
-}
-
-function toggleMusic() {
-    if(audio.paused) { audio.play(); playPauseBtn.innerText = '⏸'; } 
-    else { audio.pause(); playPauseBtn.innerText = '▶'; }
-}
-
-function changeSong(songSrc, songTitle, songArtist, coverSrc) {
-    audio.src = songSrc; 
-    document.getElementById('player-title').innerText = songTitle;
-    document.getElementById('player-artist').innerText = songArtist;
-    document.getElementById('player-cover').src = coverSrc; 
-    audio.play();
-    playPauseBtn.innerText = '⏸';
-}
-
-audio.addEventListener('timeupdate', () => {
-    if(audio.duration) {
-        const progressPercent = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = `${progressPercent}%`;
-    }
-});
-
-audio.addEventListener('pause', () => playPauseBtn.innerText = '▶');
-audio.addEventListener('play', () => playPauseBtn.innerText = '⏸');
-
-const petalsContainer = document.getElementById('petals-container');
-for (let i = 0; i < 35; i++) {
-    let petal = document.createElement('div');
-    petal.classList.add('petal');
-    let size = Math.random() * 8 + 6; 
-    petal.style.width = size + 'px'; petal.style.height = size + 'px';
-    petal.style.left = Math.random() * 100 + 'vw';
-    petal.style.animationDuration = Math.random() * 6 + 6 + 's';
-    petal.style.animationDelay = Math.random() * 7 + 's';
-    petalsContainer.appendChild(petal);
-}
-
+let isGiftOpened = false;
 const popupOverlay = document.getElementById('popup-overlay');
 const popupBox = document.getElementById('popup-box');
 const btnNo = document.getElementById('btn-no');
 
 function showPopup() {
     if(isGiftOpened) return;
-    popupOverlay.classList.add('show');
-    
-    document.getElementById('cover-screen').onclick = null;
+    if(popupOverlay) {
+        popupOverlay.classList.add('show');
+        document.getElementById('cover-screen').onclick = null;
+    } else {
+        executeOpenGift();
+    }
 }
 
 function confirmOpenGift() {
-    popupOverlay.classList.remove('show');
-    
+    if(popupOverlay) popupOverlay.classList.remove('show');
     executeOpenGift();
 }
 
 function moveButton(e) {
+    if(!btnNo || !popupBox) return;
     btnNo.style.position = 'absolute';
-
+    
     const boxWidth = popupBox.clientWidth;
     const boxHeight = popupBox.clientHeight;
     const btnWidth = btnNo.clientWidth;
@@ -180,21 +179,63 @@ function moveButton(e) {
     btnNo.style.top = `${randomY}px`;
 }
 
-btnNo.addEventListener('mouseover', moveButton);
+if (btnNo) {
+    btnNo.addEventListener('mouseover', moveButton);
+    btnNo.addEventListener('touchstart', (e) => {
+        e.preventDefault(); 
+        moveButton();
+    });
+}
 
-btnNo.addEventListener('touchstart', (e) => {
-    e.preventDefault(); 
-    moveButton();
-});
+function executeOpenGift() {
+    if(isGiftOpened) return;
+    isGiftOpened = true;
+
+    changeSong('assets/lagu/lagu1.mp3', 'Hanya Untuk-Mu', 'Ten2Five', 'assets/cover/cover1.jpg');
+
+    const giftIcon = document.getElementById('gift-icon');
+    const tapText = document.getElementById('tap-text');
+    if(giftIcon) giftIcon.style.display = 'none';
+    if(tapText) tapText.style.display = 'none';
+    
+    createBurst(); 
+    
+    let coverScreen = document.getElementById('cover-screen');
+    if(coverScreen) {
+        setTimeout(() => {
+            coverScreen.style.opacity = '0';
+            setTimeout(() => {
+                coverScreen.style.display = 'none';
+                let mainContent = document.getElementById('main-content');
+                if(mainContent) {
+                    mainContent.style.display = 'block';
+                    setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
+                }
+            }, 1000);
+        }, 800);
+    }
+}
 
 function nextSection(btn) {
     const currentSection = btn.closest('section');
-    const nextSection = currentSection.nextElementSibling;
-   
-    if (nextSection && nextSection.tagName === 'SECTION') {
-        nextSection.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
-        });
+    const nextSec = currentSection.nextElementSibling;
+    
+    if (nextSec && nextSec.tagName === 'SECTION') {
+        nextSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
+
+const observerOptions = { root: null, rootMargin: '0px', threshold: 0.2 };
+const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+        } else {
+            entry.target.classList.remove('in-view');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('section').forEach(sec => {
+    sectionObserver.observe(sec);
+});

@@ -9,9 +9,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
-    scroll-snap-type: y mandatory;
+    overflow: hidden;
     scroll-behavior: smooth;
-    overflow-x: hidden;
 }
 
 body {
@@ -40,7 +39,7 @@ h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: norm
 
 .burst-flower { position: absolute; font-size: 30px; opacity: 0; pointer-events: none; transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 
-#main-content { display: none; opacity: 0; transition: opacity 2s ease; position: relative; z-index: 10; padding-bottom: 100px; }
+#main-content { display: none; opacity: 0; transition: opacity 2s ease; position: relative; z-index: 10; }
 
 .petals { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
 .petal { position: absolute; background-color: #ffb7c5; border-radius: 50% 0 50% 0; opacity: 0.4; animation: fall linear infinite; }
@@ -60,8 +59,48 @@ h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: norm
 .music-info { display: flex; flex-direction: column; gap: 2px; }
 .music-info .title { font-size: 13px; font-weight: 500; color: #fff; }
 .music-info .artist { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
-.progress-container { width: 100%; background: rgba(255,255,255,0.2); height: 4px; border-radius: 2px; }
-.progress-bar { width: 0%; background: var(--text-main); height: 100%; border-radius: 2px; transition: width 0.1s; }
+.progress-wrapper { width: 100%; margin-top: 5px; }
+.time-display { 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 10px; 
+    color: var(--text-muted); 
+    margin-top: 6px; 
+    letter-spacing: 1px; 
+}
+
+#seek-bar {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+#seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-main);
+    box-shadow: 0 0 10px rgba(229,115,115,0.5);
+    transition: transform 0.2s;
+}
+#seek-bar::-webkit-slider-thumb:hover { transform: scale(1.3); }
+
+#seek-bar::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-main);
+    border: none;
+    box-shadow: 0 0 10px rgba(229,115,115,0.5);
+    transition: transform 0.2s;
+}
+#seek-bar::-moz-range-thumb:hover { transform: scale(1.3); }
 .controls { display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 16px; cursor: pointer; color: var(--text-main); }
 .controls span:hover { color: var(--accent); }
 
@@ -154,11 +193,11 @@ section {
 #popup-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.85); /* Latar belakang gelap transparan */
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 200; /* Harus di atas segalanya */
+    z-index: 200;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease;
@@ -178,7 +217,7 @@ section {
     position: relative;
     width: 90%;
     max-width: 450px;
-    min-height: 250px; /* Ruang agar tombol "Tidak" bisa lari-lari */
+    min-height: 250px; 
     box-shadow: 0 0 25px rgba(229,115,115,0.4);
 }
 
@@ -218,7 +257,6 @@ section {
 #btn-no {
     background: #555;
     color: #fff;
-    /* Transisi agar saat tombol lari terlihat lebih mulus/smooth */
     transition: top 0.2s ease, left 0.2s ease, background 0.3s ease; 
 }
 
@@ -245,3 +283,22 @@ section {
     box-shadow: 0 0 25px rgba(229, 115, 115, 0.6);
     transform: translateY(-3px);
 }
+
+section > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+section.in-view > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+section.in-view > *:nth-child(1) { transition-delay: 0.1s; }
+section.in-view > *:nth-child(2) { transition-delay: 0.2s; }
+section.in-view > *:nth-child(3) { transition-delay: 0.3s; }
+section.in-view > *:nth-child(4) { transition-delay: 0.4s; }
+section.in-view > *:nth-child(5) { transition-delay: 0.5s; }
+section.in-view > *:nth-child(6) { transition-delay: 0.6s; }
+section.in-view > *:nth-child(7) { transition-delay: 0.7s; }
