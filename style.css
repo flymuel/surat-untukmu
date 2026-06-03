@@ -104,11 +104,6 @@ h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: norm
 .controls { display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 16px; cursor: pointer; color: var(--text-main); }
 .controls span:hover { color: var(--accent); }
 
-@media (max-width: 768px) {
-    .music-widget { bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 350px; }
-    .music-widget:hover { transform: translate(-50%, -5px); }
-}
-
 section { 
     display: flex; 
     flex-direction: column; 
@@ -302,3 +297,86 @@ section.in-view > *:nth-child(4) { transition-delay: 0.4s; }
 section.in-view > *:nth-child(5) { transition-delay: 0.5s; }
 section.in-view > *:nth-child(6) { transition-delay: 0.6s; }
 section.in-view > *:nth-child(7) { transition-delay: 0.7s; }
+
+@media (max-width: 768px) {
+
+    .music-widget { 
+        bottom: 15px; 
+        left: 50%; 
+        transform: translateX(-50%); 
+        width: 85%; 
+        max-width: 300px; 
+        padding: 10px 15px;
+        border-radius: 12px;
+        gap: 8px;
+    }
+    
+    .music-widget:hover { 
+        transform: translate(-50%, -2px); 
+    }
+
+    .music-top { gap: 10px; }
+    .music-top img { width: 35px; height: 35px; }
+    .music-info .title { font-size: 12px; }
+    .music-info .artist { font-size: 9px; }
+    .time-display { font-size: 9px; margin-top: 3px; }
+    .controls { gap: 15px; font-size: 14px; }
+
+    section {
+        padding-bottom: 130px; 
+        padding-top: 30px;
+    }
+
+    .title-main { 
+        font-size: 38px; 
+        margin-bottom: 15px; 
+        line-height: 1.1;
+    }
+    
+    .title-sub { 
+        font-size: 28px; 
+        margin-bottom: 15px; 
+    }
+    
+    .text-body { 
+        font-size: 12px; 
+        line-height: 1.7;
+    }
+
+    .subtitle {
+        font-size: 9px;
+        margin-bottom: 10px;
+    }
+
+    .hero-section img {
+        width: 120px !important;
+        height: 120px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .reasons-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    .photo-grid { 
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .video-grid { 
+        grid-template-columns: 2fr;
+    }
+
+    .playlist-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px;
+    }
+    
+    .playlist-grid .photo-item:nth-child(5) {
+        grid-column: span 2; 
+        width: 50%;
+        margin: 0 auto;
+    }
+}
