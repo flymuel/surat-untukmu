@@ -69,32 +69,36 @@ h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: norm
 
 section { 
     display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; 
-    padding: 40px 20px; max-width: 800px; margin: 0 auto; position: relative; 
+    padding: 10px 20px;
+    max-width: 750px;
+    margin: 0 auto; position: relative; 
     height: 100vh; scroll-snap-align: start; 
 }
 .hero-section { height: 100vh; justify-content: center; }
 
-.subtitle { font-size: 11px; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px; }
-.title-main { font-size: 55px; margin-bottom: 25px; color: #fff; line-height: 1.2; }
-.title-sub { font-size: 38px; margin-bottom: 25px; color: #fff; }
-.text-body { font-size: 14px; line-height: 1.9; color: #dcdcdc; max-width: 650px; font-weight: 300; }
+.subtitle { font-size: 11px; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 8px; }
+.title-main { font-size: 42px; margin-bottom: 10px; color: #fff; line-height: 1.1; }
+.title-sub { font-size: 32px; margin-bottom: 10px; color: #fff; }
+.text-body { font-size: 13px; line-height: 1.6; color: #dcdcdc; max-width: 650px; font-weight: 300; }
+
+.hero-section img { width: 110px !important; height: 110px !important; margin-bottom: 15px !important; }
 
 .next-btn {
-    margin-top: 40px; padding: 12px 35px; background: transparent; border: 2px solid var(--accent);
+    margin-top: 15px; padding: 10px 30px; background: transparent; border: 2px solid var(--accent);
     color: var(--text-main); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600;
     letter-spacing: 2px; text-transform: uppercase; border-radius: 25px; cursor: pointer;
     transition: all 0.3s ease; box-shadow: 0 0 15px rgba(229, 115, 115, 0.2);
 }
 .next-btn:hover { background: var(--accent); color: #fff; box-shadow: 0 0 25px rgba(229, 115, 115, 0.6); transform: translateY(-3px); }
 
-.reasons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; width: 100%; margin-top: 40px; }
-.card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); padding: 30px 25px; border-radius: 12px; backdrop-filter: blur(10px); transition: all 0.3s ease; text-align: center; }
+.reasons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
+.card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); padding: 15px 12px; border-radius: 12px; backdrop-filter: blur(10px); transition: all 0.3s ease; text-align: center; }
 .card:hover { transform: translateY(-8px); border-color: rgba(229,115,115,0.3); }
-.card-icon { font-size: 24px; margin-bottom: 15px; }
-.card h3 { font-size: 22px; margin-bottom: 12px; color: #fff; }
-.card p { font-size: 13px; color: #bca0ad; line-height: 1.6; }
+.card-icon { font-size: 20px; margin-bottom: 8px; }
+.card h3 { font-size: 16px; margin-bottom: 6px; color: #fff; }
+.card p { font-size: 11px; color: #bca0ad; line-height: 1.4; }
 
-.photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; margin-top: 40px; }
+.photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
 .photo-item { position: relative; cursor: pointer; transition: transform 0.3s; }
 .photo-item:hover { transform: scale(1.05); }
 .photo-item img {
@@ -102,13 +106,13 @@ section {
     filter: grayscale(100%) sepia(30%) hue-rotate(290deg) brightness(0.8) contrast(1.2); transition: filter 0.5s ease;
 }
 .photo-item img:hover { filter: grayscale(0%); }
-.photo-caption { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; margin-top: 15px; color: var(--text-muted); }
+.photo-caption { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; margin-top: 6px; color: var(--text-muted); }
 
-.video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; }
-.video-container { margin-top: 30px; width: 100%; max-width: 350px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4); margin: 0 auto; }
+.video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; margin-top: 15px; }
+.video-container { width: 100%; max-width: 320px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4); margin: 0 auto; }
 .video-container video { width: 100%; display: block; }
 
-.playlist-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; width: 100%; margin-top: 30px; }
+.playlist-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
 
 .music-widget {
     position: fixed; bottom: 30px; left: 30px; background: rgba(15, 5, 10, 0.7); border: 1px solid rgba(255,255,255,0.08);
