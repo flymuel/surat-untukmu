@@ -69,72 +69,67 @@ h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: norm
 
 section { 
     display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; 
-    padding: 10px 20px;
-    max-width: 750px;
+    padding: 5px 20px;
+    max-width: 680px;
     margin: 0 auto; position: relative; 
     height: 100vh; scroll-snap-align: start; 
 }
 .hero-section { height: 100vh; justify-content: center; }
 
-.subtitle { font-size: 11px; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 8px; }
-.title-main { font-size: 42px; margin-bottom: 10px; color: #fff; line-height: 1.1; }
-.title-sub { font-size: 32px; margin-bottom: 10px; color: #fff; }
-.text-body { font-size: 13px; line-height: 1.6; color: #dcdcdc; max-width: 650px; font-weight: 300; }
+.subtitle { font-size: 10px; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 5px; }
+.title-main { font-size: 38px; margin-bottom: 5px; color: #fff; line-height: 1.1; }
+.title-sub { font-size: 28px; margin-bottom: 5px; color: #fff; }
+.text-body { font-size: 13px; line-height: 1.5; color: #dcdcdc; max-width: 650px; font-weight: 300; }
 
-.hero-section img { width: 110px !important; height: 110px !important; margin-bottom: 15px !important; }
+.hero-section img { width: 100px !important; height: 100px !important; margin-bottom: 10px !important; }
 
 .next-btn {
-    margin-top: 15px; padding: 10px 30px; background: transparent; border: 2px solid var(--accent);
+    margin-top: 10px; padding: 8px 25px; background: transparent; border: 2px solid var(--accent);
     color: var(--text-main); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600;
     letter-spacing: 2px; text-transform: uppercase; border-radius: 25px; cursor: pointer;
     transition: all 0.3s ease; box-shadow: 0 0 15px rgba(229, 115, 115, 0.2);
 }
 .next-btn:hover { background: var(--accent); color: #fff; box-shadow: 0 0 25px rgba(229, 115, 115, 0.6); transform: translateY(-3px); }
 
-.reasons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
-.card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); padding: 15px 12px; border-radius: 12px; backdrop-filter: blur(10px); transition: all 0.3s ease; text-align: center; }
-.card:hover { transform: translateY(-8px); border-color: rgba(229,115,115,0.3); }
-.card-icon { font-size: 20px; margin-bottom: 8px; }
-.card h3 { font-size: 16px; margin-bottom: 6px; color: #fff; }
+.reasons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; margin-top: 15px; }
+.card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); padding: 12px 10px; border-radius: 12px; backdrop-filter: blur(10px); transition: all 0.3s ease; text-align: center; }
+.card:hover { transform: translateY(-5px); border-color: rgba(229,115,115,0.3); }
+.card-icon { font-size: 18px; margin-bottom: 5px; }
+.card h3 { font-size: 15px; margin-bottom: 5px; color: #fff; }
 .card p { font-size: 11px; color: #bca0ad; line-height: 1.4; }
 
-.photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
+.photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; margin-top: 15px; }
 .photo-item { position: relative; cursor: pointer; transition: transform 0.3s; }
 .photo-item:hover { transform: scale(1.05); }
-.photo-item img {
-    width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;
-    filter: grayscale(100%) sepia(30%) hue-rotate(290deg) brightness(0.8) contrast(1.2); transition: filter 0.5s ease;
-}
+.photo-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; filter: grayscale(100%) sepia(30%) hue-rotate(290deg) brightness(0.8) contrast(1.2); transition: filter 0.5s ease; }
 .photo-item img:hover { filter: grayscale(0%); }
-.photo-caption { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; margin-top: 6px; color: var(--text-muted); }
+.photo-caption { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; margin-top: 5px; color: var(--text-muted); }
 
 .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; margin-top: 15px; }
-.video-container { width: 100%; max-width: 320px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4); margin: 0 auto; }
+.video-container { width: 100%; max-width: 280px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4); margin: 0 auto; }
 .video-container video { width: 100%; display: block; }
 
-.playlist-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
+.playlist-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; width: 100%; margin-top: 15px; }
 
 .music-widget {
-    position: fixed; bottom: 30px; left: 30px; background: rgba(15, 5, 10, 0.7); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 15px; padding: 15px; width: 260px; backdrop-filter: blur(15px); z-index: 50; display: flex; flex-direction: column;
-    gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.3s;
+    position: fixed; bottom: 20px; left: 20px; background: rgba(15, 5, 10, 0.7); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 15px; padding: 12px; width: 240px; backdrop-filter: blur(15px); z-index: 50; display: flex; flex-direction: column;
+    gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.3s;
 }
 .music-widget:hover { transform: translateY(-5px); }
-.music-top { display: flex; align-items: center; gap: 15px; }
-.music-top img { width: 45px; height: 45px; border-radius: 5px; object-fit: cover; }
+.music-top { display: flex; align-items: center; gap: 12px; }
+.music-top img { width: 40px; height: 40px; border-radius: 5px; object-fit: cover; }
 .music-info { display: flex; flex-direction: column; gap: 2px; }
-.music-info .title { font-size: 13px; font-weight: 500; color: #fff; }
-.music-info .artist { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
+.music-info .title { font-size: 12px; font-weight: 500; color: #fff; }
+.music-info .artist { font-size: 9px; color: var(--text-muted); letter-spacing: 1px; }
 
-.progress-wrapper { width: 100%; margin-top: 5px; }
-.time-display { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-top: 6px; letter-spacing: 1px; }
+.progress-wrapper { width: 100%; margin-top: 3px; }
+.time-display { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); margin-top: 5px; letter-spacing: 1px; }
 #seek-bar { appearance: none; -webkit-appearance: none; width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; outline: none; cursor: pointer; }
-#seek-bar::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--text-main); box-shadow: 0 0 10px rgba(229,115,115,0.5); transition: transform 0.2s; }
+#seek-bar::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%; background: var(--text-main); box-shadow: 0 0 10px rgba(229,115,115,0.5); transition: transform 0.2s; }
 #seek-bar::-webkit-slider-thumb:hover { transform: scale(1.3); }
-#seek-bar::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--text-main); border: none; box-shadow: 0 0 10px rgba(229,115,115,0.5); transition: transform 0.2s; }
-#seek-bar::-moz-range-thumb:hover { transform: scale(1.3); }
 
-.controls { display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 16px; cursor: pointer; color: var(--text-main); }
+.controls { display: flex; justify-content: center; align-items: center; gap: 15px; font-size: 14px; cursor: pointer; color: var(--text-main); }
 .controls span:hover { color: var(--accent); }
 
 section > * { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
@@ -165,9 +160,9 @@ section.in-view > *:nth-child(7) { transition-delay: 0.7s; }
 
     .title-main { font-size: 38px; margin-bottom: 15px; line-height: 1.1; }
     .title-sub { font-size: 28px; margin-bottom: 15px; }
-    .text-body { font-size: 12px; line-height: 1.7; }
+    .text-body { font-size: 11px !important; line-height: 1.5 !important; }
     .subtitle { font-size: 9px; margin-bottom: 10px; }
-    .hero-section img { width: 120px !important; height: 120px !important; margin-bottom: 15px !important; }
+    .hero-section img { width: 100px !important; height: 100px !important; margin-bottom: 15px !important; }
 
     .reasons-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px; }
     .card { padding: 12px 10px; }
@@ -185,33 +180,11 @@ section.in-view > *:nth-child(7) { transition-delay: 0.7s; }
 
     .photo-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .photo-grid .photo-caption { font-size: 12px !important; margin-top: 5px !important; }
-    .video-grid { 
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 10px; 
-        margin-top: 10px;
-    }
-    .video-container { 
-        margin-top: 0 !important; 
-        border-radius: 8px; 
-    }
+    
+    .video-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
+    .video-container { margin-top: 0 !important; border-radius: 8px; }
 
-    .text-body { 
-        font-size: 11px !important; 
-        line-height: 1.5 !important; 
-    }
-
-    section div[style*="border-left"] {
-        padding: 15px 20px !important;
-        margin-top: 10px !important;
-    }
-
-    section div[style*="border-left"] p {
-        font-size: 12px !important;
-        line-height: 1.6 !important;
-    }
-
-    section p[style*="made with love"] {
-        margin-top: 20px !important;
-        font-size: 14px !important;
-    }
+    section div[style*="border-left"] { padding: 15px 20px !important; margin-top: 10px !important; }
+    section div[style*="border-left"] p { font-size: 12px !important; line-height: 1.6 !important; }
+    section p[style*="made with love"] { margin-top: 20px !important; font-size: 14px !important; }
 }
