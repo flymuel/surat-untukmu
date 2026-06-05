@@ -8,4 +8,4 @@ This project is a simple, yet meaningful web-based romantic surprise. I created 
 The main purpose of this repository is to serve as a heartfelt surprise for a loved one. 
 
 ---
-*Created with ❤️ by Samuel*
+*Created with ❤️ by flymuel*
