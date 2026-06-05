@@ -1,7 +1,11 @@
-# surat-untukmu
-Sebuah ucapan dari dalam lubuk hati untuk kekasihku Sasta Rainbit.
+# 💌 Surat Untukmu (A Letter for You)
 
-Kalian Juga Bisa Memakai Code Ini Untuk Kekasih Kalian
-Atur Sesuai Keinginan kalian
+This project is a simple, yet meaningful web-based romantic surprise. I created this website specifically to be given as a digital gift to someone special.
 
-Made With Love, flymuel
+### 📖 About The Project
+"Surat Untukmu" (which translates to "A Letter for You" in Indonesian) is a personalized digital love letter. Instead of giving a traditional physical card, I decided to write some code and build a dedicated website to express my feelings. 
+
+The main purpose of this repository is to serve as a heartfelt surprise for a loved one. 
+
+---
+*Created with ❤️ by Samuel*
